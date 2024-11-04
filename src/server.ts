@@ -17,8 +17,8 @@ app.post('/api/predict', (req, res) => {
     const data: PostedDataType = req.body;
 
     // prepare the data for model
-    const x_values = data.data.map((item) => item.value);
-    const y_values = [...Array(x_values.length).keys()];
+    const y_values = data.data.map((item) => item.value);
+    const x_values = [...Array(y_values.length).keys()];
 
     // model fitting and predicting
     const linReg = new LinearRegression();

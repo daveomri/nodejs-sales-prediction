@@ -27,8 +27,8 @@ export default class LinearRegression {
      * slope = (sum((x_i - X_avg) * (y_i - y_mean))) / (sum((x_i - X_avg)^2))
      */
     #countSlope(): number {
-        let slopeNum = 0;
-        let slopeDen = 0;
+        let slopeNum = 0.0;
+        let slopeDen = 0.0;
 
         for(let i = 0; i < this.#x_values.length; i++) {
             slopeNum += (this.#x_values[i] - this.#x_mean) * (this.#y_values[i] - this.#y_mean);
@@ -62,7 +62,6 @@ export default class LinearRegression {
         this.#slope = this.#countSlope();
 
         this.#intercept = this.#countIntercept();
-
     }
 
     /**
