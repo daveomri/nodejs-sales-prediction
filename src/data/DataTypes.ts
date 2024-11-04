@@ -10,11 +10,12 @@ export type PostedDataType = {
 };
 
 export type StoredDataType = {
-    "results": {
+    "result": {
         "timestamp": string;
-        "prediction": number;
+        "predictions": number[];
         "parameters": {
-            "name": number
-        }[]
+            "slope": number;
+            "intercept": number;
+        }
     }
 };

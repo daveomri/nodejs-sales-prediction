@@ -27,10 +27,12 @@ app.post('/api/predict', (req, res) => {
 
     const predictions = linReg.predict(10);
 
-    const predictionsData = {
-        "timestamp": Date.now(),
-        "parameters": linReg.getModelParameters(),
-        "predictions": predictions
+    const predictionsData: StoredDataType = {
+        "result": {
+            "timestamp": Date.now().toString(),
+            "parameters": linReg.getModelParameters(),
+            "predictions": predictions
+        }
     }
 
     fs.writeFile(RESULT_PATH, JSON.stringify(predictionsData), (writeErr) => {
