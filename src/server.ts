@@ -18,29 +18,31 @@ app.post('/api/predict', (req, res) => {
 
     // prepare the data for model
     const x_values = data.data.map((item) => item.value);
-    const y_values = [...Array(10).keys()];
+    console.log(x_values);
+    const y_values = [...Array(x_values.length).keys()];
+    console.log(y_values);
 
     // model fitting and predicting
-    const linReg = new LinearRegression();
+    // const linReg = new LinearRegression();
 
-    linReg.fit(x_values, y_values);
+    // linReg.fit(x_values, y_values);
 
-    const predictions = linReg.predict(10);
+    // const predictions = linReg.predict(10);
 
-    const predictionsData: StoredDataType = {
-        "result": {
-            "timestamp": Date.now().toString(),
-            "parameters": linReg.getModelParameters(),
-            "predictions": predictions
-        }
-    }
+    // const predictionsData: StoredDataType = {
+    //     "result": {
+    //         "timestamp": Date.now().toString(),
+    //         "parameters": linReg.getModelParameters(),
+    //         "predictions": predictions
+    //     }
+    // }
 
-    fs.writeFile(RESULT_PATH, JSON.stringify(predictionsData), (writeErr) => {
-        if (writeErr) {
-            return res.status(500).send('Error saving predictions');
-        }
-        return res.send("Prediction saved.");
-    });
+    // fs.writeFile(RESULT_PATH, JSON.stringify(predictionsData), (writeErr) => {
+    //     if (writeErr) {
+    //         return res.status(500).send('Error saving predictions');
+    //     }
+    //     return res.send("Prediction saved.");
+    // });
 });
 
 app.get('/api/prediction', (_, res) => {
