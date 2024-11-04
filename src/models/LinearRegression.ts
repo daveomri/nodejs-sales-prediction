@@ -54,10 +54,9 @@ export default class LinearRegression {
     fit(x_vals: number[], y_vals: number[]) {
         this.#x_values = x_vals;
         this.#y_values = y_vals;
-        // count the means
+    
         this.#x_mean = this.#x_values.reduce((partialSum, a) => partialSum + a, 0) / this.#x_values.length;
         this.#y_mean = this.#y_values.reduce((partialSum, a) => partialSum + a, 0) / this.#y_values.length;
-
 
         this.#slope = this.#countSlope();
 

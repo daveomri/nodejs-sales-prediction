@@ -9,7 +9,6 @@ const app = express();
 
 const port = process.env.PORT ?? 3001;
 
-// Adding the request body to request object
 app.use(express.json());
 
 app.post('/api/predict', (req, res) => {
@@ -29,7 +28,7 @@ app.post('/api/predict', (req, res) => {
 
     const predictionsData: StoredDataType = {
         "result": {
-            "timestamp": Date.now().toString(),
+            "timestamp": new Date().toISOString(),
             "parameters": linReg.getModelParameters(),
             "predictions": predictions
         }
