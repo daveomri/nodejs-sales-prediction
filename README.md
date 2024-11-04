@@ -11,4 +11,4 @@ npm run start
 ```
 
 ### More information
-docs/omraidav_task.pdf
+[Docs](docs/omraidav_task.pdf)
