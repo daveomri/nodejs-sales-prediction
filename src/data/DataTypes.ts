@@ -1,4 +1,4 @@
-export type PostedDataType = {
+export type ReceivedDataType = {
     "params": {
         "name": string;
         "value": string | number;

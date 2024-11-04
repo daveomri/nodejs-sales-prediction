@@ -1,6 +1,6 @@
 import express from 'express';
 import fs from 'fs';
-import { PostedDataType, StoredDataType } from './data/DataTypes';
+import { ReceivedDataType, StoredDataType } from './data/DataTypes';
 import LinearRegression from './models/LinearRegression';
 
 const RESULT_PATH = 'src/data/result.json';
@@ -13,8 +13,11 @@ app.use(express.json());
 
 app.post('/api/predict', (req, res) => {
     // get data
-    const data: PostedDataType = req.body;
-
+    const data: ReceivedDataType = req.body;
+    if (data.data === undefined || data.data.length === 0) {
+        res.status(500).send('Error, wrong data format given!');
+        return;
+    }
     // prepare the data for model
     const y_values = data.data.map((item) => item.value);
     const x_values = [...Array(y_values.length).keys()];
@@ -34,6 +37,7 @@ app.post('/api/predict', (req, res) => {
         }
     }
 
+    // store the prediction data
     fs.writeFile(RESULT_PATH, JSON.stringify(predictionsData), (writeErr) => {
         if (writeErr) {
             return res.status(500).send('Error saving predictions');
@@ -45,13 +49,13 @@ app.post('/api/predict', (req, res) => {
 app.get('/api/prediction', (_, res) => {
     fs.readFile(RESULT_PATH, 'utf-8', (err, data) => {
         if (err) {
-            res.status(500);
-            return res.json(`Error reading the file ${err.message}`);
+            res.status(500).send(`Error reading the file ${err.message}`);
+            return;
         }
+
         const jdata: StoredDataType = JSON.parse(data);
 
-        res.status(200);
-        return res.send(jdata);
+        res.status(200).send(jdata);
     });
 });
 
